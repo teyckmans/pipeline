@@ -47,6 +47,7 @@ var (
 // PipelineRun creates TaskRuns for Tasks in the referenced Pipeline.
 //
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type PipelineRun struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

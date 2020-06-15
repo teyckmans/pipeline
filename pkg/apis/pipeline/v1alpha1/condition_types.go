@@ -29,6 +29,7 @@ import (
 // Condition declares a step that is used to gate the execution of a Task in a Pipeline.
 // A condition execution (ConditionCheck) evaluates to either true or false
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type Condition struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

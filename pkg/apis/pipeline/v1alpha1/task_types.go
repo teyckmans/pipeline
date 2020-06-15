@@ -76,6 +76,7 @@ type Sidecar = v1beta1.Sidecar
 // output resources the Task requires.
 //
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type Task struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

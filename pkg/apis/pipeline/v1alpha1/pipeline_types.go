@@ -66,6 +66,7 @@ const (
 // Pipeline describes a list of Tasks to execute. It expresses how outputs
 // of tasks feed into inputs of subsequent tasks.
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type Pipeline struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

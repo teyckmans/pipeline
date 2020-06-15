@@ -70,6 +70,7 @@ var AllResourceTypes = []PipelineResourceType{PipelineResourceTypeGit, PipelineR
 // Task.
 //
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type PipelineResource struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

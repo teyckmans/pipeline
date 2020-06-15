@@ -28,6 +28,8 @@ import (
 // ClusterTask is a Task with a cluster scope. ClusterTasks are used to
 // represent Tasks that should be publicly addressable from any namespace in the
 // cluster.
+// +kubebuilder:resource:path=clustertasks,scope=Cluster
+// +kubebuilder:subresource:status
 type ClusterTask struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional

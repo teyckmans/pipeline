@@ -315,6 +315,7 @@ type CloudEventDeliveryState struct {
 // used to run the steps in a Task.
 //
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type TaskRun struct {
 	metav1.TypeMeta `json:",inline"`
 	// +optional
