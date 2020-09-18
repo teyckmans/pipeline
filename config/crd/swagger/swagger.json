@@ -9931,133 +9931,6 @@
     }
   },
   "definitions": {
-    "dev.knative.pkg.apis.Condition": {
-      "description": "Conditions defines a readiness condition for a Knative resource. See: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties",
-      "type": "object",
-      "properties": {
-        "lastTransitionTime": {
-          "description": "LastTransitionTime is the last time the condition transitioned from one status to another. We use VolatileTime in place of metav1.Time to exclude this from creating equality.Semantic differences (all other things held constant).",
-          "$ref": "#/definitions/dev.knative.pkg.apis.VolatileTime"
-        },
-        "message": {
-          "description": "A human readable message indicating details about the transition.",
-          "type": "string"
-        },
-        "reason": {
-          "description": "The reason for the condition's last transition.",
-          "type": "string"
-        },
-        "severity": {
-          "description": "Severity with which to treat failures of this type of condition. When this is not specified, it defaults to Error.",
-          "$ref": "#/definitions/dev.knative.pkg.apis.ConditionSeverity"
-        },
-        "status": {
-          "description": "Status of the condition, one of True, False, Unknown.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.ConditionStatus"
-        },
-        "type": {
-          "description": "Type of condition.",
-          "$ref": "#/definitions/dev.knative.pkg.apis.ConditionType"
-        }
-      }
-    },
-    "dev.knative.pkg.apis.ConditionSeverity": {
-      "description": "ConditionSeverity expresses the severity of a Condition Type failing.",
-      "type": "string"
-    },
-    "dev.knative.pkg.apis.ConditionType": {
-      "description": "ConditionType is a camel-cased condition type.",
-      "type": "string"
-    },
-    "dev.knative.pkg.apis.Conditions": {
-      "description": "Conditions is the schema for the conditions portion of the payload",
-      "type": "array"
-    },
-    "dev.knative.pkg.apis.VolatileTime": {
-      "type": "Any"
-    },
-    "dev.knative.pkg.apis.duck.v1beta1.Conditions": {
-      "description": "Conditions is a simple wrapper around apis.Conditions to implement duck.Implementable.",
-      "type": ""
-    },
-    "dev.knative.pkg.apis.duck.v1beta1.Status": {
-      "description": "Status shows how we expect folks to embed Conditions in their Status field. WARNING: Adding fields to this struct will add them to all Knative resources.",
-      "type": "object",
-      "properties": {
-        "conditions": {
-          "description": "Conditions the latest available observations of a resource's current state.",
-          "$ref": "#/definitions/dev.knative.pkg.apis.duck.v1beta1.Conditions"
-        },
-        "observedGeneration": {
-          "description": "ObservedGeneration is the 'Generation' of the Service that was last processed by the controller.",
-          "type": "integer"
-        }
-      }
-    },
-    "dev.tekton.pod.Template": {
-      "description": "PodTemplate holds pod specific configuration",
-      "type": "object",
-      "properties": {
-        "affinity": {
-          "description": "If specified, the pod's scheduling constraints",
-          "$ref": "#/definitions/io.k8s.api.core.v1.Affinity"
-        },
-        "automountServiceAccountToken": {
-          "description": "AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted.",
-          "type": "boolean"
-        },
-        "dnsConfig": {
-          "description": "Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfig"
-        },
-        "dnsPolicy": {
-          "description": "Set DNS policy for the pod. Defaults to \"ClusterFirst\". Valid values are 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.DNSPolicy"
-        },
-        "enableServiceLinks": {
-          "description": "EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.",
-          "type": "boolean"
-        },
-        "hostNetwork": {
-          "description": "HostNetwork specifies whether the pod may use the node network namespace",
-          "type": "boolean"
-        },
-        "nodeSelector": {
-          "description": "NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/",
-          "type": "object"
-        },
-        "priorityClassName": {
-          "description": "If specified, indicates the pod's priority. \"system-node-critical\" and \"system-cluster-critical\" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.",
-          "type": "string"
-        },
-        "runtimeClassName": {
-          "description": "RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod. If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the \"legacy\" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.",
-          "type": "string"
-        },
-        "schedulerName": {
-          "description": "SchedulerName specifies the scheduler to be used to dispatch the Pod",
-          "type": "string"
-        },
-        "securityContext": {
-          "description": "SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext"
-        },
-        "tolerations": {
-          "description": "If specified, the pod's tolerations.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.Toleration"
-          }
-        },
-        "volumes": {
-          "description": "List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.Volume"
-          }
-        }
-      }
-    },
     "dev.tekton.v1alpha1.ClusterTask": {
       "description": "ClusterTask is a Task with a cluster scope. ClusterTasks are used to represent Tasks that should be publicly addressable from any namespace in the cluster.",
       "type": "object",
@@ -10122,44 +9995,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.tekton.v1alpha1.ResourceDeclaration"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.Inputs": {
-      "description": "Inputs are the requirements that a task needs to run a Build.",
-      "type": "object",
-      "properties": {
-        "params": {
-          "description": "Params is a list of input parameters required to run the task. Params must be supplied as inputs in TaskRuns unless they declare a default value.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.ParamSpec"
-          }
-        },
-        "resources": {
-          "description": "Resources is a list of the input resources required to run the task. Resources are represented in TaskRuns as bindings to instances of PipelineResources.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResource"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.Outputs": {
-      "description": "Outputs allow a task to declare what data the Build/Task will be producing, i.e. results such as logs and artifacts such as images.",
-      "type": "object",
-      "properties": {
-        "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResource"
-          }
-        },
-        "results": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1alpha1.TestResult"
           }
         }
       }
@@ -10302,8 +10137,8 @@
           }
         },
         "status": {
-          "description": "Used for cancelling a pipelinerun (and maybe more later on)",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineRunSpecStatus"
+          "description": "PipelineRunSpecStatus defines the pipelinerun spec status the user can provide",
+          "type": "string"
         },
         "taskRunSpecs": {
           "description": "TaskRunSpecs holds a set of task specific specs",
@@ -10313,8 +10148,7 @@
           }
         },
         "timeout": {
-          "description": "Time after which the Pipeline times out. Defaults to never. Refer to Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+          "type": "string"
         },
         "workspaces": {
           "description": "Workspaces holds a set of workspace bindings that must match names with those declared in the pipeline.",
@@ -10374,132 +10208,6 @@
       "description": "PipelineStatus does not contain anything because Pipelines on their own do not have a status, they just hold data which is later used by a PipelineRun. Deprecated",
       "type": "object"
     },
-    "dev.tekton.v1alpha1.PipelineTask": {
-      "description": "PipelineTask defines a task in a Pipeline, passing inputs from both Params and from the output of previous tasks.",
-      "type": "object",
-      "properties": {
-        "conditions": {
-          "description": "Conditions is a list of conditions that need to be true for the task to run",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskCondition"
-          }
-        },
-        "name": {
-          "description": "Name is the name of this task within the context of a Pipeline. Name is used as a coordinate with the `from` and `runAfter` fields to establish the execution order of tasks relative to one another.",
-          "type": "string"
-        },
-        "params": {
-          "description": "Parameters declares parameters passed to this task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.Param"
-          }
-        },
-        "resources": {
-          "description": "Resources declares the resources given to this task as inputs and outputs.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskResources"
-        },
-        "retries": {
-          "description": "Retries represents how many times this task should be retried in case of task failure: ConditionSucceeded set to False",
-          "type": "integer"
-        },
-        "runAfter": {
-          "description": "RunAfter is the list of PipelineTask names that should be executed before this Task executes. (Used to force a specific ordering in graph execution.)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "taskRef": {
-          "description": "TaskRef is a reference to a task definition.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRef"
-        },
-        "taskSpec": {
-          "description": "TaskSpec is specification of a task",
-          "$ref": "#/definitions/dev.tekton.v1alpha1.TaskSpec"
-        },
-        "timeout": {
-          "description": "Time after which the TaskRun times out. Defaults to 1 hour. Specified TaskRun timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
-        },
-        "workspaces": {
-          "description": "Workspaces maps workspaces from the pipeline spec to the workspaces declared in the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.WorkspacePipelineTaskBinding"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.PipelineTaskRunSpec": {
-      "description": "PipelineTaskRunSpec holds task specific specs",
-      "type": "object",
-      "properties": {
-        "pipelineTaskName": {
-          "type": "string"
-        },
-        "taskPodTemplate": {
-          "$ref": "#/definitions/dev.tekton.pod.Template"
-        },
-        "taskServiceAccountName": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.ResourceDeclaration": {
-      "description": "ResourceDeclaration defines an input or output PipelineResource declared as a requirement by another type such as a Task or Condition. The Name field will be used to refer to these PipelineResources within the type's definition, and when provided as an Input, the Name will be the path to the volume mounted containing this PipelineResource as an input (e.g. an input Resource named `workspace` will be mounted at `/workspace`).",
-      "type": "object",
-      "properties": {
-        "description": {
-          "description": "Description is a user-facing description of the declared resource that may be used to populate a UI.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name declares the name by which a resource is referenced in the definition. Resources may be referenced by name in the definition of a Task's steps.",
-          "type": "string"
-        },
-        "optional": {
-          "description": "Optional declares the resource as optional. By default optional is set to false which makes a resource required. optional: true - the resource is considered optional optional: false - the resource is considered required (equivalent of not specifying it)",
-          "type": "boolean"
-        },
-        "targetPath": {
-          "description": "TargetPath is the path in workspace directory where the resource will be copied.",
-          "type": "string"
-        },
-        "type": {
-          "description": "Type is the type of this resource;",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.ResourceParam": {
-      "description": "ResourceParam declares a string value to use for the parameter called Name, and is used in the specific context of PipelineResources.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.SecretParam": {
-      "description": "SecretParam indicates which secret can be used to populate a field of the resource",
-      "type": "object",
-      "properties": {
-        "fieldName": {
-          "type": "string"
-        },
-        "secretKey": {
-          "type": "string"
-        },
-        "secretName": {
-          "type": "string"
-        }
-      }
-    },
     "dev.tekton.v1alpha1.Task": {
       "description": "Task represents a collection of sequential steps that are run as part of a Pipeline using a set of inputs and producing a set of outputs. Tasks execute when TaskRuns are created that provide the input parameters and resources and output resources the Task requires.",
       "type": "object",
@@ -10542,36 +10250,6 @@
         }
       ]
     },
-    "dev.tekton.v1alpha1.TaskRunInputs": {
-      "description": "TaskRunInputs holds the input values that this task was invoked with.",
-      "type": "object",
-      "properties": {
-        "params": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.Param"
-          }
-        },
-        "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResourceBinding"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1alpha1.TaskRunOutputs": {
-      "description": "TaskRunOutputs holds the output values that this task was invoked with.",
-      "type": "object",
-      "properties": {
-        "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResourceBinding"
-          }
-        }
-      }
-    },
     "dev.tekton.v1alpha1.TaskRunSpec": {
       "description": "TaskRunSpec defines the desired state of TaskRun",
       "type": "object",
@@ -10601,8 +10279,8 @@
           "type": "string"
         },
         "status": {
-          "description": "Used for cancelling a taskrun (and maybe more later on)",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunSpecStatus"
+          "description": "TaskRunSpecStatus defines the taskrun spec status the user can provide",
+          "type": "string"
         },
         "taskRef": {
           "description": "no more than one of the TaskRef and TaskSpec may be specified.",
@@ -10612,8 +10290,7 @@
           "$ref": "#/definitions/dev.tekton.v1alpha1.TaskSpec"
         },
         "timeout": {
-          "description": "Time after which the build times out. Defaults to 10 minutes. Specified build timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+          "type": "string"
         },
         "workspaces": {
           "description": "Workspaces is a list of WorkspaceBindings from volumes to workspaces.",
@@ -10638,65 +10315,6 @@
         }
       }
     },
-    "dev.tekton.v1alpha1.TestResult": {
-      "description": "TestResult allows a task to specify the location where test logs can be found and what format they will be in.",
-      "type": "object",
-      "properties": {
-        "format": {
-          "description": "TODO: maybe this is an enum with types like \"go test\", \"junit\", etc.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name declares the name by which a result is referenced in the Task's definition. Results may be referenced by name in the definition of a Task's steps.",
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.ArrayOrString": {
-      "type": "Any"
-    },
-    "dev.tekton.v1beta1.CloudEventCondition": {
-      "description": "CloudEventCondition is a string that represents the condition of the event.",
-      "type": "string"
-    },
-    "dev.tekton.v1beta1.CloudEventDelivery": {
-      "description": "CloudEventDelivery is the target of a cloud event along with the state of delivery.",
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/dev.tekton.v1beta1.CloudEventDeliveryState"
-        },
-        "target": {
-          "description": "Target points to an addressable",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.CloudEventDeliveryState": {
-      "description": "CloudEventDeliveryState reports the state of a cloud event to be sent.",
-      "type": "object",
-      "properties": {
-        "condition": {
-          "description": "Current status",
-          "$ref": "#/definitions/dev.tekton.v1beta1.CloudEventCondition"
-        },
-        "message": {
-          "description": "Error is the text of error (if any)",
-          "type": "string"
-        },
-        "retryCount": {
-          "description": "RetryCount is the number of attempts of sending the cloud event",
-          "type": "integer"
-        },
-        "sentAt": {
-          "description": "SentAt is the time at which the last attempt to send the event was made",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        }
-      }
-    },
     "dev.tekton.v1beta1.ClusterTask": {
       "description": "ClusterTask is a Task with a cluster scope. ClusterTasks are used to represent Tasks that should be publicly addressable from any namespace in the cluster.",
       "type": "object",
@@ -10717,70 +10335,6 @@
         }
       ]
     },
-    "dev.tekton.v1beta1.ConditionCheckStatus": {
-      "description": "ConditionCheckStatus defines the observed state of ConditionCheck",
-      "type": "object"
-    },
-    "dev.tekton.v1beta1.ConditionCheckStatusFields": {
-      "description": "ConditionCheckStatusFields holds the fields of ConfigurationCheck's status. This is defined separately and inlined so that other types can readily consume these fields via duck typing.",
-      "type": "object",
-      "properties": {
-        "check": {
-          "description": "Check describes the state of the check container.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.ContainerState"
-        },
-        "completionTime": {
-          "description": "CompletionTime is the time the check pod completed.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        },
-        "podName": {
-          "description": "PodName is the name of the pod responsible for executing this condition check.",
-          "type": "string"
-        },
-        "startTime": {
-          "description": "StartTime is the time the check is actually started.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.Param": {
-      "description": "Param declares an ArrayOrString to use for the parameter called name.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "value": {
-          "$ref": "#/definitions/dev.tekton.v1beta1.ArrayOrString"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.ParamSpec": {
-      "description": "ParamSpec defines arbitrary parameters needed beyond typed inputs (such as resources). Parameter values are provided by users as inputs on a TaskRun or PipelineRun.",
-      "type": "object",
-      "properties": {
-        "default": {
-          "description": "Default is the value a parameter takes if no input value is supplied. If default is set, a Task may be executed without a supplied value for the parameter.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.ArrayOrString"
-        },
-        "description": {
-          "description": "Description is a user-facing description of the parameter that may be used to populate a UI.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name declares the name by which a parameter is referenced.",
-          "type": "string"
-        },
-        "type": {
-          "description": "Type is the user-specified type of the parameter. The possible types are currently \"string\" and \"array\", and \"string\" is the default.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.ParamType"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.ParamType": {
-      "description": "ParamType indicates the type of an input parameter; Used to distinguish between a single string and an array of strings.",
-      "type": "string"
-    },
     "dev.tekton.v1beta1.Pipeline": {
       "description": "Pipeline describes a list of Tasks to execute. It expresses how outputs of tasks feed into inputs of subsequent tasks.",
       "type": "object",
@@ -10800,106 +10354,6 @@
           "version": "v1beta1"
         }
       ]
-    },
-    "dev.tekton.v1beta1.PipelineDeclaredResource": {
-      "description": "PipelineDeclaredResource is used by a Pipeline to declare the types of the PipelineResources that it will required to run and names which can be used to refer to these PipelineResources in PipelineTaskResourceBindings.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name is the name that will be used by the Pipeline to refer to this resource. It does not directly correspond to the name of any PipelineResources Task inputs or outputs, and it does not correspond to the actual names of the PipelineResources that will be bound in the PipelineRun.",
-          "type": "string"
-        },
-        "optional": {
-          "description": "Optional declares the resource as optional. optional: true - the resource is considered optional optional: false - the resource is considered required (default/equivalent of not specifying it)",
-          "type": "boolean"
-        },
-        "type": {
-          "description": "Type is the type of the PipelineResource.",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineRef": {
-      "description": "PipelineRef can be used to refer to a specific instance of a Pipeline. Copied from CrossVersionObjectReference: https://github.com/kubernetes/kubernetes/blob/169df7434155cbbc22f1532cba8e0a9588e29ad8/pkg/apis/autoscaling/types.go#L64",
-      "type": "object",
-      "properties": {
-        "apiVersion": {
-          "description": "API version of the referent",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineResourceBinding": {
-      "description": "PipelineResourceBinding connects a reference to an instance of a PipelineResource with a PipelineResource dependency that the Pipeline has declared",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name is the name of the PipelineResource in the Pipeline's declaration",
-          "type": "string"
-        },
-        "resourceRef": {
-          "description": "ResourceRef is a reference to the instance of the actual PipelineResource that should be used",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineResourceRef"
-        },
-        "resourceSpec": {
-          "description": "ResourceSpec is specification of a resource that should be created and consumed by the task",
-          "$ref": "#/definitions/dev.tekton.v1alpha1.PipelineResourceSpec"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineResourceRef": {
-      "description": "PipelineResourceRef can be used to refer to a specific instance of a Resource",
-      "type": "object",
-      "properties": {
-        "apiVersion": {
-          "description": "API version of the referent",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineResourceResult": {
-      "description": "PipelineResourceResult used to export the image name and digest as json",
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "resourceRef": {
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineResourceRef"
-        },
-        "type": {
-          "$ref": "#/definitions/dev.tekton.v1beta1.ResultType"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineResult": {
-      "description": "PipelineResult used to describe the results of a pipeline",
-      "type": "object",
-      "properties": {
-        "description": {
-          "description": "Description is a human-readable description of the result",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name the given name",
-          "type": "string"
-        },
-        "value": {
-          "description": "Value the expression used to retrieve the value",
-          "type": "string"
-        }
-      }
     },
     "dev.tekton.v1beta1.PipelineRun": {
       "description": "PipelineRun represents a single execution of a Pipeline. PipelineRuns are how the graph of Tasks declared in a Pipeline are executed; they specify inputs to Pipelines such as parameter values and capture operational aspects of the Tasks execution such as service account and tolerations. Creating a PipelineRun creates TaskRuns for Tasks in the referenced Pipeline.",
@@ -10922,34 +10376,6 @@
           "version": "v1beta1"
         }
       ]
-    },
-    "dev.tekton.v1beta1.PipelineRunConditionCheckStatus": {
-      "description": "PipelineRunConditionCheckStatus returns the condition check status",
-      "type": "object",
-      "properties": {
-        "conditionName": {
-          "description": "ConditionName is the name of the Condition",
-          "type": "string"
-        },
-        "status": {
-          "description": "Status is the ConditionCheckStatus for the corresponding ConditionCheck",
-          "$ref": "#/definitions/dev.tekton.v1beta1.ConditionCheckStatus"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineRunResult": {
-      "description": "PipelineRunResult used to describe the results of a pipeline",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name is the result's name as declared by the Pipeline",
-          "type": "string"
-        },
-        "value": {
-          "description": "Value is the result returned from the execution of this PipelineRun",
-          "type": "string"
-        }
-      }
     },
     "dev.tekton.v1beta1.PipelineRunSpec": {
       "description": "PipelineRunSpec defines the desired state of PipelineRun",
@@ -10989,8 +10415,8 @@
           }
         },
         "status": {
-          "description": "Used for cancelling a pipelinerun (and maybe more later on)",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineRunSpecStatus"
+          "description": "PipelineRunSpecStatus defines the pipelinerun spec status the user can provide",
+          "type": "string"
         },
         "taskRunSpecs": {
           "description": "TaskRunSpecs holds a set of runtime specs",
@@ -11000,8 +10426,7 @@
           }
         },
         "timeout": {
-          "description": "Time after which the Pipeline times out. Defaults to never. Refer to Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+          "type": "string"
         },
         "workspaces": {
           "description": "Workspaces holds a set of workspace bindings that must match names with those declared in the pipeline.",
@@ -11012,72 +10437,9 @@
         }
       }
     },
-    "dev.tekton.v1beta1.PipelineRunSpecServiceAccountName": {
-      "description": "PipelineRunSpecServiceAccountName can be used to configure specific ServiceAccountName for a concrete Task",
-      "type": "object",
-      "properties": {
-        "serviceAccountName": {
-          "type": "string"
-        },
-        "taskName": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineRunSpecStatus": {
-      "description": "PipelineRunSpecStatus defines the pipelinerun spec status the user can provide",
-      "type": "string"
-    },
     "dev.tekton.v1beta1.PipelineRunStatus": {
       "description": "PipelineRunStatus defines the observed state of PipelineRun",
       "type": "object"
-    },
-    "dev.tekton.v1beta1.PipelineRunStatusFields": {
-      "description": "PipelineRunStatusFields holds the fields of PipelineRunStatus' status. This is defined separately and inlined so that other types can readily consume these fields via duck typing.",
-      "type": "object",
-      "properties": {
-        "completionTime": {
-          "description": "CompletionTime is the time the PipelineRun completed.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        },
-        "pipelineResults": {
-          "description": "PipelineResults are the list of results written out by the pipeline task's containers",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineRunResult"
-          }
-        },
-        "pipelineSpec": {
-          "description": "PipelineRunSpec contains the exact spec used to instantiate the run",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineSpec"
-        },
-        "startTime": {
-          "description": "StartTime is the time the PipelineRun is actually started.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        },
-        "taskRuns": {
-          "description": "map of PipelineRunTaskRunStatus with the taskRun name as the key",
-          "type": "object"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineRunTaskRunStatus": {
-      "description": "PipelineRunTaskRunStatus contains the name of the PipelineTask for this TaskRun and the TaskRun's Status",
-      "type": "object",
-      "properties": {
-        "conditionChecks": {
-          "description": "ConditionChecks maps the name of a condition check to its Status",
-          "type": "object"
-        },
-        "pipelineTaskName": {
-          "description": "PipelineTaskName is the name of the PipelineTask.",
-          "type": "string"
-        },
-        "status": {
-          "description": "Status is the TaskRunStatus for the corresponding TaskRun",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunStatus"
-        }
-      }
     },
     "dev.tekton.v1beta1.PipelineSpec": {
       "description": "PipelineSpec defines the desired state of Pipeline.",
@@ -11124,202 +10486,6 @@
         }
       }
     },
-    "dev.tekton.v1beta1.PipelineTask": {
-      "description": "PipelineTask defines a task in a Pipeline, passing inputs from both Params and from the output of previous tasks.",
-      "type": "object",
-      "properties": {
-        "conditions": {
-          "description": "Conditions is a list of conditions that need to be true for the task to run",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskCondition"
-          }
-        },
-        "name": {
-          "description": "Name is the name of this task within the context of a Pipeline. Name is used as a coordinate with the `from` and `runAfter` fields to establish the execution order of tasks relative to one another.",
-          "type": "string"
-        },
-        "params": {
-          "description": "Parameters declares parameters passed to this task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.Param"
-          }
-        },
-        "resources": {
-          "description": "Resources declares the resources given to this task as inputs and outputs.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskResources"
-        },
-        "retries": {
-          "description": "Retries represents how many times this task should be retried in case of task failure: ConditionSucceeded set to False",
-          "type": "integer"
-        },
-        "runAfter": {
-          "description": "RunAfter is the list of PipelineTask names that should be executed before this Task executes. (Used to force a specific ordering in graph execution.)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "taskRef": {
-          "description": "TaskRef is a reference to a task definition.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRef"
-        },
-        "taskSpec": {
-          "description": "TaskSpec is a specification of a task",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskSpec"
-        },
-        "timeout": {
-          "description": "Time after which the TaskRun times out. Defaults to 1 hour. Specified TaskRun timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
-        },
-        "workspaces": {
-          "description": "Workspaces maps workspaces from the pipeline spec to the workspaces declared in the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.WorkspacePipelineTaskBinding"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineTaskCondition": {
-      "description": "PipelineTaskCondition allows a PipelineTask to declare a Condition to be evaluated before the Task is run.",
-      "type": "object",
-      "properties": {
-        "conditionRef": {
-          "description": "ConditionRef is the name of the Condition to use for the conditionCheck",
-          "type": "string"
-        },
-        "params": {
-          "description": "Params declare parameters passed to this Condition",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.Param"
-          }
-        },
-        "resources": {
-          "description": "Resources declare the resources provided to this Condition as input",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskInputResource"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineTaskInputResource": {
-      "description": "PipelineTaskInputResource maps the name of a declared PipelineResource input dependency in a Task to the resource in the Pipeline's DeclaredPipelineResources that should be used. This input may come from a previous task.",
-      "type": "object",
-      "properties": {
-        "from": {
-          "description": "From is the list of PipelineTask names that the resource has to come from. (Implies an ordering in the execution graph.)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "name": {
-          "description": "Name is the name of the PipelineResource as declared by the Task.",
-          "type": "string"
-        },
-        "resource": {
-          "description": "Resource is the name of the DeclaredPipelineResource to use.",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineTaskOutputResource": {
-      "description": "PipelineTaskOutputResource maps the name of a declared PipelineResource output dependency in a Task to the resource in the Pipeline's DeclaredPipelineResources that should be used.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name is the name of the PipelineResource as declared by the Task.",
-          "type": "string"
-        },
-        "resource": {
-          "description": "Resource is the name of the DeclaredPipelineResource to use.",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineTaskResources": {
-      "description": "PipelineTaskResources allows a Pipeline to declare how its DeclaredPipelineResources should be provided to a Task as its inputs and outputs.",
-      "type": "object",
-      "properties": {
-        "inputs": {
-          "description": "Inputs holds the mapping from the PipelineResources declared in DeclaredPipelineResources to the input PipelineResources required by the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskInputResource"
-          }
-        },
-        "outputs": {
-          "description": "Outputs holds the mapping from the PipelineResources declared in DeclaredPipelineResources to the input PipelineResources required by the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineTaskOutputResource"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.PipelineTaskRunSpec": {
-      "description": "PipelineTaskRunSpec  can be used to configure specific specs for a concrete Task",
-      "type": "object",
-      "properties": {
-        "pipelineTaskName": {
-          "type": "string"
-        },
-        "taskPodTemplate": {
-          "$ref": "#/definitions/dev.tekton.pod.Template"
-        },
-        "taskServiceAccountName": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.ResultType": {
-      "description": "ResultType used to find out whether a PipelineResourceResult is from a task result or not",
-      "type": "string"
-    },
-    "dev.tekton.v1beta1.SidecarState": {
-      "description": "SidecarState reports the results of running a sidecar in a Task.",
-      "type": "object",
-      "properties": {
-        "container": {
-          "type": "string"
-        },
-        "imageID": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.Step": {
-      "description": "Step embeds the Container type, which allows it to include fields not provided by Container.",
-      "type": "object",
-      "properties": {
-        "script": {
-          "description": "Script is the contents of an executable file to execute. \n If Script is not empty, the Step cannot have an Command or Args.",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.StepState": {
-      "description": "StepState reports the results of running a step in a Task.",
-      "type": "object",
-      "properties": {
-        "container": {
-          "type": "string"
-        },
-        "imageID": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
     "dev.tekton.v1beta1.Task": {
       "description": "Task represents a collection of sequential steps that are run as part of a Pipeline using a set of inputs and producing a set of outputs. Tasks execute when TaskRuns are created that provide the input parameters and resources and output resources the Task requires.",
       "type": "object",
@@ -11339,79 +10505,6 @@
           "version": "v1beta1"
         }
       ]
-    },
-    "dev.tekton.v1beta1.TaskKind": {
-      "description": "Check that Pipeline may be validated and defaulted. TaskKind defines the type of Task used by the pipeline.",
-      "type": "string"
-    },
-    "dev.tekton.v1beta1.TaskRef": {
-      "description": "TaskRef can be used to refer to a specific instance of a task. Copied from CrossVersionObjectReference: https://github.com/kubernetes/kubernetes/blob/169df7434155cbbc22f1532cba8e0a9588e29ad8/pkg/apis/autoscaling/types.go#L64",
-      "type": "object",
-      "properties": {
-        "apiVersion": {
-          "description": "API version of the referent",
-          "type": "string"
-        },
-        "kind": {
-          "description": "TaskKind indicates the kind of the task, namespaced or cluster scoped.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskKind"
-        },
-        "name": {
-          "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.TaskResource": {
-      "description": "TaskResource defines an input or output Resource declared as a requirement by a Task. The Name field will be used to refer to these Resources within the Task definition, and when provided as an Input, the Name will be the path to the volume mounted containing this Resource as an input (e.g. an input Resource named `workspace` will be mounted at `/workspace`).",
-      "type": "object"
-    },
-    "dev.tekton.v1beta1.TaskResourceBinding": {
-      "description": "TaskResourceBinding points to the PipelineResource that will be used for the Task input or output called Name.",
-      "type": "object",
-      "properties": {
-        "paths": {
-          "description": "Paths will probably be removed in #1284, and then PipelineResourceBinding can be used instead. The optional Path field corresponds to a path on disk at which the Resource can be found (used when providing the resource via mounted volume, overriding the default logic to fetch the Resource).",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.TaskResources": {
-      "description": "TaskResources allows a Pipeline to declare how its DeclaredPipelineResources should be provided to a Task as its inputs and outputs.",
-      "type": "object",
-      "properties": {
-        "inputs": {
-          "description": "Inputs holds the mapping from the PipelineResources declared in DeclaredPipelineResources to the input PipelineResources required by the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResource"
-          }
-        },
-        "outputs": {
-          "description": "Outputs holds the mapping from the PipelineResources declared in DeclaredPipelineResources to the input PipelineResources required by the Task.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResource"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.TaskResult": {
-      "description": "TaskResult used to describe the results of a task",
-      "type": "object",
-      "properties": {
-        "description": {
-          "description": "Description is a human-readable description of the result",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name the given name",
-          "type": "string"
-        }
-      }
     },
     "dev.tekton.v1beta1.TaskRun": {
       "description": "TaskRun represents a single execution of a Task. TaskRuns are how the steps specified in a Task are executed; they specify the parameters and resources used to run the steps in a Task.",
@@ -11435,40 +10528,6 @@
         }
       ]
     },
-    "dev.tekton.v1beta1.TaskRunResources": {
-      "description": "TaskRunResources allows a TaskRun to declare inputs and outputs TaskResourceBinding",
-      "type": "object",
-      "properties": {
-        "inputs": {
-          "description": "Inputs holds the inputs resources this task was invoked with",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResourceBinding"
-          }
-        },
-        "outputs": {
-          "description": "Outputs holds the inputs resources this task was invoked with",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskResourceBinding"
-          }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.TaskRunResult": {
-      "description": "TaskRunResult used to describe the results of a task",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name the given name",
-          "type": "string"
-        },
-        "value": {
-          "description": "Value the given value of the result",
-          "type": "string"
-        }
-      }
-    },
     "dev.tekton.v1beta1.TaskRunSpec": {
       "description": "TaskRunSpec defines the desired state of TaskRun",
       "type": "object",
@@ -11490,8 +10549,8 @@
           "type": "string"
         },
         "status": {
-          "description": "Used for cancelling a taskrun (and maybe more later on)",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunSpecStatus"
+          "description": "TaskRunSpecStatus defines the taskrun spec status the user can provide",
+          "type": "string"
         },
         "taskRef": {
           "description": "no more than one of the TaskRef and TaskSpec may be specified.",
@@ -11501,8 +10560,7 @@
           "$ref": "#/definitions/dev.tekton.v1beta1.TaskSpec"
         },
         "timeout": {
-          "description": "Time after which the build times out. Defaults to 1 hour. Specified build timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Duration"
+          "type": "string"
         },
         "workspaces": {
           "description": "Workspaces is a list of WorkspaceBindings from volumes to workspaces.",
@@ -11513,77 +10571,9 @@
         }
       }
     },
-    "dev.tekton.v1beta1.TaskRunSpecStatus": {
-      "description": "TaskRunSpecStatus defines the taskrun spec status the user can provide",
-      "type": "string"
-    },
     "dev.tekton.v1beta1.TaskRunStatus": {
       "description": "TaskRunStatus defines the observed state of TaskRun",
       "type": "object"
-    },
-    "dev.tekton.v1beta1.TaskRunStatusFields": {
-      "description": "TaskRunStatusFields holds the fields of TaskRun's status.  This is defined separately and inlined so that other types can readily consume these fields via duck typing.",
-      "type": "object",
-      "properties": {
-        "cloudEvents": {
-          "description": "CloudEvents describe the state of each cloud event requested via a CloudEventResource.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.CloudEventDelivery"
-          }
-        },
-        "completionTime": {
-          "description": "CompletionTime is the time the build completed.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        },
-        "podName": {
-          "description": "PodName is the name of the pod responsible for executing this task's steps.",
-          "type": "string"
-        },
-        "resourcesResult": {
-          "description": "Results from Resources built during the taskRun. currently includes the digest of build container images",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineResourceResult"
-          }
-        },
-        "retriesStatus": {
-          "description": "RetriesStatus contains the history of TaskRunStatus in case of a retry in order to keep record of failures. All TaskRunStatus stored in RetriesStatus will have no date within the RetriesStatus as is redundant.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunStatus"
-          }
-        },
-        "sidecars": {
-          "description": "The list has one entry per sidecar in the manifest. Each entry is represents the imageid of the corresponding sidecar.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.SidecarState"
-          }
-        },
-        "startTime": {
-          "description": "StartTime is the time the build is actually started.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-        },
-        "steps": {
-          "description": "Steps describes the state of each build step container.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.StepState"
-          }
-        },
-        "taskResults": {
-          "description": "TaskRunResults are the list of results written out by the task's containers",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunResult"
-          }
-        },
-        "taskSpec": {
-          "description": "TaskSpec contains the Spec from the dereferenced Task definition used to instantiate this TaskRun.",
-          "$ref": "#/definitions/dev.tekton.v1beta1.TaskSpec"
-        }
-      }
     },
     "dev.tekton.v1beta1.TaskSpec": {
       "description": "TaskSpec defines the desired state of Task.",
@@ -11642,94 +10632,6 @@
           "items": {
             "$ref": "#/definitions/dev.tekton.v1beta1.WorkspaceDeclaration"
           }
-        }
-      }
-    },
-    "dev.tekton.v1beta1.WorkspaceBinding": {
-      "description": "WorkspaceBinding maps a Task's declared workspace to a Volume.",
-      "type": "object",
-      "properties": {
-        "configMap": {
-          "description": "ConfigMap represents a configMap that should populate this workspace.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapVolumeSource"
-        },
-        "emptyDir": {
-          "description": "EmptyDir represents a temporary directory that shares a Task's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir Either this OR PersistentVolumeClaim can be used.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource"
-        },
-        "name": {
-          "description": "Name is the name of the workspace populated by the volume.",
-          "type": "string"
-        },
-        "persistentVolumeClaim": {
-          "description": "PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. Either this OR EmptyDir can be used.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource"
-        },
-        "secret": {
-          "description": "Secret represents a secret that should populate this workspace.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.SecretVolumeSource"
-        },
-        "subPath": {
-          "description": "SubPath is optionally a directory on the volume which should be used for this binding (i.e. the volume will be mounted at this sub directory).",
-          "type": "string"
-        },
-        "volumeClaimTemplate": {
-          "description": "VolumeClaimTemplate is a template for a claim that will be created in the same namespace. The PipelineRun controller is responsible for creating a unique claim for each instance of PipelineRun.",
-          "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.WorkspaceDeclaration": {
-      "description": "WorkspaceDeclaration is a declaration of a volume that a Task requires.",
-      "type": "object",
-      "properties": {
-        "description": {
-          "description": "Description is an optional human readable description of this volume.",
-          "type": "string"
-        },
-        "mountPath": {
-          "description": "MountPath overrides the directory that the volume will be made available at.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name is the name by which you can bind the volume at runtime.",
-          "type": "string"
-        },
-        "readOnly": {
-          "description": "ReadOnly dictates whether a mounted volume is writable. By default this field is false and so mounted volumes are writable.",
-          "type": "boolean"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.WorkspacePipelineDeclaration": {
-      "description": "WorkspacePipelineDeclaration creates a named slot in a Pipeline that a PipelineRun is expected to populate with a workspace binding.",
-      "type": "object",
-      "properties": {
-        "description": {
-          "description": "Description is a human readable string describing how the workspace will be used in the Pipeline. It can be useful to include a bit of detail about which tasks are intended to have access to the data on the workspace.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name is the name of a workspace to be provided by a PipelineRun.",
-          "type": "string"
-        }
-      }
-    },
-    "dev.tekton.v1beta1.WorkspacePipelineTaskBinding": {
-      "description": "WorkspacePipelineTaskBinding describes how a workspace passed into the pipeline should be mapped to a task's declared workspace.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name is the name of the workspace as declared by the task",
-          "type": "string"
-        },
-        "subPath": {
-          "description": "SubPath is optionally a directory on the volume which should be used for this binding (i.e. the volume will be mounted at this sub directory).",
-          "type": "string"
-        },
-        "workspace": {
-          "description": "Workspace is the name of the workspace declared by the pipeline",
-          "type": "string"
         }
       }
     }
