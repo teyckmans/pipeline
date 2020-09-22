@@ -9989,7 +9989,10 @@
         },
         "nodeSelector": {
           "description": "NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "priorityClassName": {
           "description": "If specified, indicates the pod's priority. \"system-node-critical\" and \"system-cluster-critical\" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.",
@@ -10763,6 +10766,40 @@
         }
       ]
     },
+    "dev.tekton.v1beta1.ConditionCheckStatus": {
+      "description": "ConditionCheckStatus defines the observed state of ConditionCheck",
+      "type": "object",
+      "properties": {
+        "check": {
+          "description": "Check describes the state of the check container.",
+          "$ref": "#/definitions/io.k8s.api.core.v1.ContainerState"
+        },
+        "completionTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "conditions": {
+          "description": "Conditions is the schema for the conditions portion of the payload",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dev.knative.pkg.apis.Condition"
+          }
+        },
+        "observedGeneration": {
+          "description": "ObservedGeneration is the 'Generation' of the Service that was last processed by the controller.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "podName": {
+          "description": "PodName is the name of the pod responsible for executing this condition check.",
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "dev.tekton.v1beta1.Param": {
       "description": "Param declares an ArrayOrString to use for the parameter called name.",
       "type": "object",
@@ -10955,6 +10992,20 @@
         }
       ]
     },
+    "dev.tekton.v1beta1.PipelineRunConditionCheckStatus": {
+      "description": "PipelineRunConditionCheckStatus returns the condition check status",
+      "type": "object",
+      "properties": {
+        "conditionName": {
+          "description": "ConditionName is the name of the Condition",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status is the ConditionCheckStatus for the corresponding ConditionCheck",
+          "$ref": "#/definitions/dev.tekton.v1beta1.ConditionCheckStatus"
+        }
+      }
+    },
     "dev.tekton.v1beta1.PipelineRunResult": {
       "description": "PipelineRunResult used to describe the results of a pipeline",
       "type": "object",
@@ -11078,7 +11129,31 @@
         },
         "taskRuns": {
           "description": "map of PipelineRunTaskRunStatus with the taskRun name as the key",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineRunTaskRunStatus"
+          }
+        }
+      }
+    },
+    "dev.tekton.v1beta1.PipelineRunTaskRunStatus": {
+      "description": "PipelineRunTaskRunStatus contains the name of the PipelineTask for this TaskRun and the TaskRun's Status",
+      "type": "object",
+      "properties": {
+        "conditionChecks": {
+          "description": "ConditionChecks maps the name of a condition check to its Status",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/dev.tekton.v1beta1.PipelineRunConditionCheckStatus"
+          }
+        },
+        "pipelineTaskName": {
+          "description": "PipelineTaskName is the name of the PipelineTask.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status is the TaskRunStatus for the corresponding TaskRun",
+          "$ref": "#/definitions/dev.tekton.v1beta1.TaskRunStatus"
         }
       }
     },
