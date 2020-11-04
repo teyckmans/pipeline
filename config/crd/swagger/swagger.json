@@ -1655,7 +1655,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResourceList"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResourceList"
             }
           },
           "401": {
@@ -1692,7 +1692,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           {
@@ -1714,19 +1714,19 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "202": {
             "description": "Accepted",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "401": {
@@ -1882,7 +1882,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "401": {
@@ -1919,7 +1919,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           {
@@ -1941,13 +1941,13 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "401": {
@@ -2085,7 +2085,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "401": {
@@ -5877,7 +5877,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/dev.tekton.resource.v1alpha1.PipelineResource"
+              "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.PipelineResource"
             }
           },
           "401": {
@@ -10588,7 +10588,8 @@
       "type": "object",
       "properties": {
         "lastTransitionTime": {
-          "type": "Any"
+          "description": "LastTransitionTime is the last time the condition transitioned from one status to another. We use VolatileTime in place of metav1.Time to exclude this from creating equality.Semantic differences (all other things held constant).",
+          "$ref": "#/definitions/dev.knative.pkg.apis.VolatileTime"
         },
         "message": {
           "description": "A human readable message indicating details about the transition.",
@@ -10599,17 +10600,22 @@
           "type": "string"
         },
         "severity": {
-          "description": "ConditionSeverity expresses the severity of a Condition Type failing.",
+          "description": "Severity with which to treat failures of this type of condition. When this is not specified, it defaults to Error.",
           "type": "string"
         },
         "status": {
+          "description": "Status of the condition, one of True, False, Unknown.",
           "type": "string"
         },
         "type": {
-          "description": "ConditionType is a camel-cased condition type.",
+          "description": "Type of condition.",
           "type": "string"
         }
       }
+    },
+    "dev.knative.pkg.apis.VolatileTime": {
+      "description": "VolatileTime wraps metav1.Time \n Unlike metav1.Time, VolatileTimes are considered semantically equal when using kubernetes semantic equality checks. Thus differing VolatileTime values are not considered different. Note, go-cmp will still return inequality, see unit test if you need this behavior for go-cmp.",
+      "type": "object"
     },
     "dev.tekton.pipeline.pod.Template": {
       "description": "PodTemplate holds pod specific configuration",
@@ -10628,6 +10634,7 @@
           "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfig"
         },
         "dnsPolicy": {
+          "description": "Set DNS policy for the pod. Defaults to \"ClusterFirst\". Valid values are 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy.",
           "type": "string"
         },
         "enableServiceLinks": {
@@ -10910,7 +10917,7 @@
           }
         },
         "status": {
-          "description": "PipelineRunSpecStatus defines the pipelinerun spec status the user can provide",
+          "description": "Used for cancelling a pipelinerun (and maybe more later on)",
           "type": "string"
         },
         "taskRunSpecs": {
@@ -10921,6 +10928,7 @@
           }
         },
         "timeout": {
+          "description": "Time after which the Pipeline times out. Defaults to never. Refer to Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "workspaces": {
@@ -11027,6 +11035,7 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.TaskSpec"
         },
         "timeout": {
+          "description": "Time after which the TaskRun times out. Defaults to 1 hour. Specified TaskRun timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "workspaces": {
@@ -11097,7 +11106,7 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.TaskRef"
         },
         "status": {
-          "description": "RunSpecStatus defines the taskrun spec status the user can provide",
+          "description": "Used for cancelling a run (and maybe more later on)",
           "type": "string"
         }
       }
@@ -11113,11 +11122,12 @@
           }
         },
         "completionTime": {
+          "description": "CompletionTime is the time the build completed.",
           "type": "string",
           "format": "date-time"
         },
         "conditions": {
-          "description": "Conditions is the schema for the conditions portion of the payload",
+          "description": "Conditions the latest available observations of a resource's current state.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.knative.pkg.apis.Condition"
@@ -11140,6 +11150,7 @@
           }
         },
         "startTime": {
+          "description": "StartTime is the time the build is actually started.",
           "type": "string",
           "format": "date-time"
         }
@@ -11262,7 +11273,7 @@
           "type": "string"
         },
         "status": {
-          "description": "TaskRunSpecStatus defines the taskrun spec status the user can provide",
+          "description": "Used for cancelling a taskrun (and maybe more later on)",
           "type": "string"
         },
         "taskRef": {
@@ -11273,6 +11284,7 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1alpha1.TaskSpec"
         },
         "timeout": {
+          "description": "Time after which the build times out. Defaults to 10 minutes. Specified build timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "workspaces": {
@@ -11369,6 +11381,24 @@
         }
       }
     },
+    "dev.tekton.pipeline.v1beta1.ArrayOrString": {
+      "description": "ArrayOrString is a type that can hold a single string or string array. Used in JSON unmarshalling so that a single JSON field can accept either an individual string or an array of strings.",
+      "type": "object",
+      "properties": {
+        "arrayVal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stringVal": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
     "dev.tekton.pipeline.v1beta1.CloudEventDelivery": {
       "description": "CloudEventDelivery is the target of a cloud event along with the state of delivery.",
       "type": "object",
@@ -11387,7 +11417,7 @@
       "type": "object",
       "properties": {
         "condition": {
-          "description": "CloudEventCondition is a string that represents the condition of the event.",
+          "description": "Current status",
           "type": "string"
         },
         "message": {
@@ -11400,6 +11430,7 @@
           "format": "int32"
         },
         "sentAt": {
+          "description": "SentAt is the time at which the last attempt to send the event was made",
           "type": "string",
           "format": "date-time"
         }
@@ -11449,11 +11480,12 @@
           "$ref": "#/definitions/io.k8s.api.core.v1.ContainerState"
         },
         "completionTime": {
+          "description": "CompletionTime is the time the check pod completed.",
           "type": "string",
           "format": "date-time"
         },
         "conditions": {
-          "description": "Conditions is the schema for the conditions portion of the payload",
+          "description": "Conditions the latest available observations of a resource's current state.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.knative.pkg.apis.Condition"
@@ -11469,6 +11501,7 @@
           "type": "string"
         },
         "startTime": {
+          "description": "StartTime is the time the check is actually started.",
           "type": "string",
           "format": "date-time"
         }
@@ -11544,7 +11577,7 @@
           "type": "string"
         },
         "value": {
-          "type": "Any"
+          "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.ArrayOrString"
         }
       }
     },
@@ -11553,7 +11586,8 @@
       "type": "object",
       "properties": {
         "default": {
-          "type": "Any"
+          "description": "Default is the value a parameter takes if no input value is supplied. If default is set, a Task may be executed without a supplied value for the parameter.",
+          "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.ArrayOrString"
         },
         "description": {
           "description": "Description is a user-facing description of the parameter that may be used to populate a UI.",
@@ -11564,7 +11598,7 @@
           "type": "string"
         },
         "type": {
-          "description": "ParamType indicates the type of an input parameter; Used to distinguish between a single string and an array of strings.",
+          "description": "Type is the user-specified type of the parameter. The possible types are currently \"string\" and \"array\", and \"string\" is the default.",
           "type": "string"
         }
       }
@@ -11676,7 +11710,6 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.PipelineResourceRef"
         },
         "type": {
-          "description": "ResultType used to find out whether a PipelineResourceResult is from a task result or not",
           "type": "string"
         },
         "value": {
@@ -11799,7 +11832,7 @@
           }
         },
         "status": {
-          "description": "PipelineRunSpecStatus defines the pipelinerun spec status the user can provide",
+          "description": "Used for cancelling a pipelinerun (and maybe more later on)",
           "type": "string"
         },
         "taskRunSpecs": {
@@ -11810,6 +11843,7 @@
           }
         },
         "timeout": {
+          "description": "Time after which the Pipeline times out. Defaults to never. Refer to Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "workspaces": {
@@ -11845,11 +11879,12 @@
           }
         },
         "completionTime": {
+          "description": "CompletionTime is the time the PipelineRun completed.",
           "type": "string",
           "format": "date-time"
         },
         "conditions": {
-          "description": "Conditions is the schema for the conditions portion of the payload",
+          "description": "Conditions the latest available observations of a resource's current state.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.knative.pkg.apis.Condition"
@@ -11879,6 +11914,7 @@
           }
         },
         "startTime": {
+          "description": "StartTime is the time the PipelineRun is actually started.",
           "type": "string",
           "format": "date-time"
         },
@@ -12017,10 +12053,11 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.EmbeddedTask"
         },
         "timeout": {
+          "description": "Time after which the TaskRun times out. Defaults to 1 hour. Specified TaskRun timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "when": {
-          "description": "WhenExpressions are used to specify whether a Task should be executed or skipped All of them need to evaluate to True for a guarded Task to be executed.",
+          "description": "WhenExpressions is a list of when expressions that need to be true for the task to run",
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.WhenExpression"
@@ -12201,7 +12238,7 @@
           "type": "string"
         },
         "imagePullPolicy": {
-          "description": "PullPolicy describes a policy for if/when to pull a container image",
+          "description": "Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images",
           "type": "string"
         },
         "lifecycle": {
@@ -12256,7 +12293,7 @@
           "type": "string"
         },
         "terminationMessagePolicy": {
-          "description": "TerminationMessagePolicy describes how termination messages are retrieved from a container.",
+          "description": "Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.",
           "type": "string"
         },
         "tty": {
@@ -12364,7 +12401,7 @@
           "type": "string"
         },
         "imagePullPolicy": {
-          "description": "PullPolicy describes a policy for if/when to pull a container image",
+          "description": "Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images",
           "type": "string"
         },
         "lifecycle": {
@@ -12419,10 +12456,11 @@
           "type": "string"
         },
         "terminationMessagePolicy": {
-          "description": "TerminationMessagePolicy describes how termination messages are retrieved from a container.",
+          "description": "Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.",
           "type": "string"
         },
         "timeout": {
+          "description": "Timeout is the time after which the step times out. Defaults to never. Refer to Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "tty": {
@@ -12513,7 +12551,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "Check that Pipeline may be validated and defaulted. TaskKind defines the type of Task used by the pipeline.",
+          "description": "TaskKind indicates the kind of the task, namespaced or cluster scoped.",
           "type": "string"
         },
         "name": {
@@ -12692,7 +12730,7 @@
           "type": "string"
         },
         "status": {
-          "description": "TaskRunSpecStatus defines the taskrun spec status the user can provide",
+          "description": "Used for cancelling a taskrun (and maybe more later on)",
           "type": "string"
         },
         "taskRef": {
@@ -12703,6 +12741,7 @@
           "$ref": "#/definitions/dev.tekton.pipeline.v1beta1.TaskSpec"
         },
         "timeout": {
+          "description": "Time after which the build times out. Defaults to 1 hour. Specified build timeout should be less than 24h. Refer Go's ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration",
           "type": "string"
         },
         "workspaces": {
@@ -12733,11 +12772,12 @@
           }
         },
         "completionTime": {
+          "description": "CompletionTime is the time the build completed.",
           "type": "string",
           "format": "date-time"
         },
         "conditions": {
-          "description": "Conditions is the schema for the conditions portion of the payload",
+          "description": "Conditions the latest available observations of a resource's current state.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/dev.knative.pkg.apis.Condition"
@@ -12774,6 +12814,7 @@
           }
         },
         "startTime": {
+          "description": "StartTime is the time the build is actually started.",
           "type": "string",
           "format": "date-time"
         },
@@ -12866,7 +12907,7 @@
           "type": "string"
         },
         "operator": {
-          "description": "Operator represents a key/field's relationship to value(s). See labels.Requirement and fields.Requirement for more details.",
+          "description": "Operator that represents an Input's relationship to the values",
           "type": "string"
         },
         "values": {
